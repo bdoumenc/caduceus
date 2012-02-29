@@ -1,0 +1,87 @@
+<html>
+<!-- ?exec import os ? -->
+<head>
+	<title>Test Caduceus</title>
+</head>
+<body>
+	<h1>Test assertions:</h1>
+	<div>
+		
+		<p><?assertEqual testOne() ?>This test will succed</p>
+		<p><?assertEqual testOne() ?>This test will failed</p>
+	
+		<p><?assertNotEqual testTwo() ?>This test will succed</p>
+		<p><?assertNotEqual testTwo() ?>This test will failed</p>
+		
+		<p><?assertNotEqual testThree() ?>This test will generate an exception</p>
+		
+	</div>
+
+	<h1>Test python statements:</h1>
+	<div>
+		<?exec testValue = 2 ?>
+		<p>Value of testValue is <?assertEqual testValue ?>2</p>
+		
+		<?exec a = 2; testValue = 5; b = 3;  ?>
+		<p>In in a multiple statement, value of testValue is <?assertEqual testValue ?>5</p>
+		
+		<?exec import math ?>
+		<p>Ceil of 2.4 is <?assertEqual math.ceil(2.4) ?>3.0</p>
+		
+		<p>If i increment the value <span><?exec incValue = int(@) + 1 ?>5</span>.
+			The result sould be  <?assertEqual incValue ?>6</p>
+
+		<?exec testException() ?>
+		<p>An exception should occure</p>
+
+	</div>
+
+	<h1>Test setting value:</h1>
+	<div>
+		<p>If i set a value from html to <span><?set htmlValue ?>21</span>,
+		   its value is really <?assertEqual htmlValue ?>21</p>
+		
+	</div>	
+	
+	<h1>Test loops:</h1>
+	<div>
+		<table>
+		<?for i in range(3): ?>
+			<tr>
+			<td>test <?assertEqual i ?>1</td>
+			</tr>
+		</table>
+	</div>
+	
+	<h1>Test partials:</h1>
+	<div>
+		<?include partial.html ?>	
+	</div>
+	
+	<h1>Test concordion compatibility:</h1>
+	<div>
+		<p concordion:assertEquals="getGreeting()">Hello World!</p>
+		
+		<p>
+            The greeting for user <span concordion:set="#firstName">Bob</span>
+            will be:
+            <span concordion:assertEquals="greetingFor(#firstName)">Hello Bob!</span>
+        </p>
+		
+        <p>
+            If the time is
+            <span concordion:set="#time">09:00AM</span>
+            <span concordion:execute="setCurrentTime(#time)" />
+            then the greeting will say:
+            <span concordion:assertEquals="getGreeting()">Good Morning World!</span>
+        </p>
+		
+        <p>
+            If the time is
+            <span concordion:execute="setCurrentTime(#TEXT)">09:00AM</span>
+            then the greeting will say:
+            <span concordion:assertEquals="getGreeting()">Good Morning World!</span>
+        </p>
+	</div>
+</body>
+</html>
