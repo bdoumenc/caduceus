@@ -133,8 +133,9 @@ if __name__ == "__main__":
 	parser = OptionParser()
     parser.add_option("-o", "--output", dest="outputPath", help="Output path", metavar="OUTPUT", default="")
 	parser.add_option("-s", "--src", dest="srcPath", help="Base directory", metavar="INPUT", default=None)
-	parser.add_option("-r", "--report-html", dest="reportHtml", help="Base directory", metavar="INPUT", default=True)
-	parser.add_option("-j", "--junit", dest="reportJUnit", help="Base directory", metavar="INPUT", default=False)
+	parser.add_option("-r", "--report-html", action="store_true", dest="reportHtml", help="Generate HTML report", default=True)
+	parser.add_option("-q", "--no-report-html", action="store_false", dest="reportHtml", help="Do not generate HTML report")
+	parser.add_option("-j", "--junit", action="store_true", dest="reportJUnit", help="Generate JUnit report", default=False)
 
 	(options, args) = parser.parse_args()
 	
