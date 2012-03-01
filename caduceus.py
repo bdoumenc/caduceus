@@ -22,6 +22,8 @@ class Caduceus:
 		self._reports = reports
 		
 		self.results = CaduceusResults()
+        os.environ["CADUCEUS_OUTPUT"] = self.outputPath
+        os.environ["CADUCEUS_SRC"] = self.rootPath
 
 	def run(self):
 		
