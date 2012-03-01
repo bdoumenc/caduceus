@@ -22,6 +22,10 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		if match:
 			return self._exec(match.group(1), dictGlob, dictLoc, tmplResults)
 
+        match = re.match("echo (.+)", self._data)
+        if match:
+            return self._echo(match.group(1), dictGlob, dictLoc, tmplResults)
+
 		match = re.match("set (.+)", self._data)
 		if match:
 			return self._setVariable(match.group(1), dictGlob, dictLoc, tmplResults)				
@@ -73,7 +77,6 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		
 		try:
 			exec pythonStmt in dictGlob, dictLoc
-			content = ""
 		except Exception, excep:
 			traceback.print_exc()
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
